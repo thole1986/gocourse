@@ -1,0 +1,12 @@
+{
+    "proto": "/home/codeovation/cert/grpc_cert/main.proto",
+    "call": "mainapi.Greeter.Greet",
+    "concurrency": 100,
+    "data": { "name": "JohnDoe" },
+    "max-duration": "20s",
+    "host": "localhost:50051",
+    "cert": "/home/codeovation/cert/grpc_cert/cert.pem",
+    "key": "/home/codeovation/cert/grpc_cert/key.pem",
+    "cacert": "/home/codeovation/cert/grpc_cert/cert.pem",
+    "root-cert": "/home/codeovation/cert/grpc_cert/cert.pem"
+}
