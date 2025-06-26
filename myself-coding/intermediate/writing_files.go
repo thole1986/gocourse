@@ -1,4 +1,4 @@
-package mai
+package intermediate
 
 import (
 	"fmt"
