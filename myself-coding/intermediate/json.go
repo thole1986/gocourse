@@ -1,8 +1,9 @@
-package main
+package intermediate
 
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 )
 
 type Person struct {
@@ -56,18 +57,59 @@ func main() {
 		"age": 39,
 		"address": {
 			"city": "HCMC",
-			"state": "Q1",
+			"state": "Q1"
 		}
 	}`
 
 	var employeeFromJson Employee
 
-	json.Unmarshal([]byte(jsonData2), employeeFromJson)
+	err = json.Unmarshal([]byte(jsonData2), &employeeFromJson)
+	if err != nil {
+		fmt.Println("Error unmarshalling JSON", err)
+		return
+	}
+
+	fmt.Println(employeeFromJson)
+	fmt.Println("Tho Le's Age increased by 5 years", employeeFromJson.Age+5)
+	fmt.Println(employeeFromJson.Address.City)
+
+	listOfCityState := []Address{
+		{City: "New York", State: "NY"},
+		{City: "San Yose", State: "CA"},
+		{City: "San Yose", State: "CA"},
+		{City: "San Yose", State: "CA"},
+		{City: "San Yose", State: "CA"},
+	}
+	fmt.Println(listOfCityState)
+	jsonList, err := json.Marshal(listOfCityState)
+	if err != nil {
+		log.Fatalln("Error Marshalling to JSON:", err)
+	}
+	fmt.Println("JSON List: ", string(jsonList))
+
+	// Handling unknow json structures.
+	jsonData3 := `
+		{"name": "John", "age": 30, "address": {
+			"city": "New York",
+			"state": "NY"
+		}}
+	`
+	var data map[string]interface{}
+
+	err = json.Unmarshal([]byte(jsonData3), &data)
+
+	if err != nil {
+		log.Fatalln("Error Unmarshalled JSON: ", data)
+	}
+
+	fmt.Println("Decoded/Unmarshalled JSON: ", data)
+	fmt.Println("Decoded/Unmarshalled JSON: ", data["address"])
+	fmt.Println("Decoded/Unmarshalled JSON: ", data["name"])
 }
 
 type Employee struct {
 	FullName string  `json:"full_name"`
 	EmpID    string  `json:"emp_id"`
-	Age      string  `json:"age"`
+	Age      int     `json:"age"`
 	Address  Address `json:"address"`
 }
