@@ -8,4 +8,12 @@ func main() {
 	c := float64(b)
 
 	fmt.Println(c)
+	g := "Hello"
+	var h []byte
+	h = []byte(g)
+	fmt.Println(h)
+	i := []byte{255, 72}
+	j := string(i)
+
+	fmt.Println(j)
 }
