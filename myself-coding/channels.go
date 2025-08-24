@@ -1,20 +1,43 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 func main() {
 
 	greeting := make(chan string)
-	// greetingString := "Hello"
+	greetString := "Hello"
 
 	go func() {
 		// blocking because it is continously trying to receive values,
 		// it is ready to receive continuous flow of data
-		receiver := <-greeting
-		fmt.Println(receiver)
+		greeting <- greetString
+		greeting <- "World"
+
+		for _, e := range "abcde" {
+			greeting <- "Alphabet " + string(e)
+		}
 	}()
+
+	// go func() {
+	// 	receiver := <-greeting
+	// 	fmt.Println(receiver)
+	// 	receiver = <-greeting
+	// 	fmt.Println(receiver)
+	// }()
 
 	receiver := <-greeting
 	fmt.Println(receiver)
+	receiver = <-greeting
+	fmt.Println(receiver)
+
+	for range 5 {
+		rcvr := <-greeting
+		fmt.Println(rcvr)
+	}
+
+	time.Sleep(1 * time.Second)
 	fmt.Println("End of program.")
 }
